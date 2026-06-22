@@ -431,13 +431,13 @@
       usage de classe interne avec lien non public.)
 ================================================================ */
 const firebaseConfig = {
-  apiKey: "AIzaSyCBskLrXYNKB6W99_5JQDkqWk-I6bOCUl8",
-  authDomain: "trading-floor-89c2b.firebaseapp.com",
-  databaseURL: "https://trading-floor-89c2b-default-rtdb.firebaseio.com",
-  projectId: "trading-floor-89c2b",
-  storageBucket: "trading-floor-89c2b.firebasestorage.app",
-  messagingSenderId: "110318223706",
-  appId: "1:110318223706:web:5975e5f90668018d48b363"
+  apiKey: "VOTRE_API_KEY",
+  authDomain: "VOTRE_PROJET.firebaseapp.com",
+  databaseURL: "https://VOTRE_PROJET-default-rtdb.firebaseio.com",
+  projectId: "VOTRE_PROJET",
+  storageBucket: "VOTRE_PROJET.appspot.com",
+  messagingSenderId: "VOTRE_SENDER_ID",
+  appId: "VOTRE_APP_ID"
 };
 
 const DB_PATH = "trading-floor-actions";
@@ -587,35 +587,30 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
   btn.textContent = 'Ajouter ma proposition';
 });
 
-/* ---------------- Reset (with confirmation) ---------------- */
+/* ---------------- Reset (with password) ---------------- */
 const resetBtn = document.getElementById('reset-btn');
 resetBtn.addEventListener('click', async () => {
-  if (resetBtn.dataset.confirming === 'true') {
-    if (db) {
-      try {
-        await db.ref(DB_PATH).remove();
-      } catch (e) {
-        console.error(e);
-        alert("Erreur lors de la réinitialisation.");
-      }
+  const mdp = prompt("🔒 Entrez le mot de passe pour réinitialiser la semaine :");
+  if (mdp === null) return;
+  if (mdp !== 'tradingfloor2023') {
+    alert("❌ Mot de passe incorrect. La liste n'a pas été effacée.");
+    return;
+  }
+  if (db) {
+    try {
+      await db.ref(DB_PATH).remove();
+      alert("✅ La semaine a été réinitialisée avec succès !");
+    } catch (e) {
+      console.error(e);
+      alert("Erreur lors de la réinitialisation.");
     }
-    resetBtn.dataset.confirming = 'false';
-    resetBtn.textContent = 'Réinitialiser la semaine';
-    resetBtn.style.background = '';
-  } else {
-    resetBtn.dataset.confirming = 'true';
-    resetBtn.textContent = 'Cliquez à nouveau pour confirmer';
-    resetBtn.style.background = 'rgba(231,76,60,0.15)';
-    setTimeout(() => {
-      if (resetBtn.dataset.confirming === 'true') {
-        resetBtn.dataset.confirming = 'false';
-        resetBtn.textContent = 'Réinitialiser la semaine';
-        resetBtn.style.background = '';
-      }
-    }, 4000);
   }
 });
 </script>
+
+<footer style="text-align:center; padding: 2rem 1rem 1.5rem; border-top: 1px solid #1a1a1a; margin-top: 2rem;">
+  <p style="font-size: 12px; color: #444; margin: 0; letter-spacing: 0.5px;">Créé par <span style="color: #555;">Groupe CMP</span></p>
+</footer>
 
 </body>
 </html>
