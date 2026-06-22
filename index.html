@@ -481,6 +481,10 @@ function render(entries) {
   }
   empty.style.display = 'none';
 
+  // Stocker les entrées dans un objet global accessible par les boutons
+  window._entriesMap = {};
+  list.forEach(([key, e]) => { window._entriesMap[key] = e; });
+
   container.innerHTML = list.map(([key, e]) => {
     const inWatch = Object.values(currentWatchlist).some(w => w.originalKey === key);
     return `
@@ -493,8 +497,8 @@ function render(entries) {
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="entry-author">par ${escapeHtml(e.name || '')}</span>
           <button class="watchlist-btn ${inWatch ? 'in-watchlist' : ''}"
-                  title="${inWatch ? 'Déjà dans la watchlist' : 'Ajouter à la watchlist'}"
-                  onclick="toggleWatchlist('${key}', ${JSON.stringify(JSON.stringify(e))})">
+                  data-key="${key}"
+                  title="${inWatch ? 'Déjà dans la watchlist' : 'Ajouter à la watchlist'}">
             ✓
           </button>
         </div>
@@ -505,6 +509,15 @@ function render(entries) {
       </div>
     </div>
   `}).join('');
+
+  // Attacher les événements après injection HTML
+  container.querySelectorAll('.watchlist-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-key');
+      const e = window._entriesMap[key];
+      if (e) toggleWatchlist(key, e);
+    });
+  });
 }
 
 /* ---------------- Render: watchlist ---------------- */
@@ -557,9 +570,8 @@ function renderWatchlist(watchlist) {
 }
 
 /* ---------------- Watchlist actions ---------------- */
-async function toggleWatchlist(key, entryJson) {
+async function toggleWatchlist(key, e) {
   if (!db) return;
-  const e = JSON.parse(entryJson);
   const alreadyIn = Object.values(currentWatchlist).some(w => w.originalKey === key);
   if (alreadyIn) {
     alert("Cette action est déjà dans la watchlist !");
