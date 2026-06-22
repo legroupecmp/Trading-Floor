@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trading Floor recherche d'action</title>
 
-<!-- ============================================================
-     FIREBASE — Firebase SDK (v9 compat, simple à utiliser)
-     ============================================================ -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
@@ -15,9 +12,7 @@
   :root {
     --bg-primary: #0a0a0a;
     --bg-card: #131313;
-    --bg-card-hover: #181818;
     --border-color: #2a2a2a;
-    --border-light: #3a3a3a;
     --green: #2ecc71;
     --green-dim: #1e8a4c;
     --green-bg: rgba(46, 204, 113, 0.08);
@@ -39,7 +34,6 @@
     min-height: 100vh;
   }
 
-  /* ---------- Header / logo ---------- */
   .header {
     display: flex;
     flex-direction: column;
@@ -48,11 +42,7 @@
     border-bottom: 1px solid var(--border-color);
   }
 
-  .logo-mark {
-    width: 130px;
-    height: auto;
-    margin-bottom: 0.5rem;
-  }
+  .logo-mark { width: 130px; height: auto; margin-bottom: 0.5rem; }
 
   .logo-text {
     font-family: var(--font-serif);
@@ -61,17 +51,9 @@
     letter-spacing: 0.3px;
     margin: 0;
   }
+  .logo-text em { font-style: italic; }
 
-  .logo-text em {
-    font-style: italic;
-  }
-
-  .logo-est {
-    font-size: 13px;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
-    margin-top: 4px;
-  }
+  .logo-est { font-size: 13px; color: var(--text-secondary); letter-spacing: 1px; margin-top: 4px; }
 
   .app-title {
     font-size: 15px;
@@ -82,14 +64,13 @@
     text-align: center;
   }
 
-  /* ---------- Layout ---------- */
   .container {
     max-width: 720px;
     margin: 0 auto;
     padding: 1.5rem 1.25rem 4rem;
   }
 
-  /* ---------- Tabs ---------- */
+  /* Tabs */
   .tabs {
     display: flex;
     gap: 4px;
@@ -114,19 +95,12 @@
     font-family: var(--font-sans);
   }
 
-  .tab-btn.active {
-    background: var(--green-bg);
-    color: var(--green);
-  }
-
-  .tab-btn:not(.active):hover {
-    color: var(--text-primary);
-  }
-
+  .tab-btn.active { background: var(--green-bg); color: var(--green); }
+  .tab-btn:not(.active):hover { color: var(--text-primary); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* ---------- Connection status ---------- */
+  /* Status */
   .status-bar {
     display: flex;
     align-items: center;
@@ -137,17 +111,11 @@
     padding: 0 2px;
   }
 
-  .status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--text-tertiary);
-  }
-
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-tertiary); }
   .status-dot.connected { background: var(--green); }
   .status-dot.error { background: var(--red); }
 
-  /* ---------- Form card ---------- */
+  /* Form */
   .card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -157,19 +125,9 @@
 
   .field { margin-bottom: 14px; }
 
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-  label {
-    display: block;
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
+  label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
 
   input[type="text"], textarea {
     width: 100%;
@@ -183,29 +141,12 @@
     transition: border-color 0.15s ease;
   }
 
-  input[type="text"]:focus, textarea:focus {
-    outline: none;
-    border-color: var(--green-dim);
-  }
-
-  textarea {
-    min-height: 64px;
-    resize: vertical;
-    line-height: 1.5;
-  }
-
-  input::placeholder, textarea::placeholder {
-    color: var(--text-tertiary);
-  }
-
+  input[type="text"]:focus, textarea:focus { outline: none; border-color: var(--green-dim); }
+  textarea { min-height: 64px; resize: vertical; line-height: 1.5; }
+  input::placeholder, textarea::placeholder { color: var(--text-tertiary); }
   #f-symbol { text-transform: uppercase; }
 
-  .error-msg {
-    font-size: 13px;
-    color: var(--red);
-    margin: 0 0 12px;
-    display: none;
-  }
+  .error-msg { font-size: 13px; color: var(--red); margin: 0 0 12px; display: none; }
 
   .submit-btn {
     width: 100%;
@@ -220,11 +161,10 @@
     font-family: var(--font-sans);
     transition: background 0.15s ease;
   }
-
   .submit-btn:hover { background: #34d479; }
   .submit-btn:disabled { background: var(--green-dim); cursor: not-allowed; opacity: 0.6; }
 
-  /* ---------- List view ---------- */
+  /* List */
   .list-header {
     display: flex;
     align-items: center;
@@ -234,10 +174,7 @@
     gap: 10px;
   }
 
-  .list-count {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
+  .list-count { font-size: 13px; color: var(--text-secondary); }
 
   .reset-btn {
     font-size: 12px;
@@ -250,20 +187,16 @@
     font-family: var(--font-sans);
     transition: all 0.15s ease;
   }
-
   .reset-btn:hover { border-color: var(--red); background: rgba(231,76,60,0.08); }
 
-  .entry-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .entry-list { display: flex; flex-direction: column; gap: 10px; }
 
   .entry-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 1rem 1.1rem;
+    position: relative;
   }
 
   .entry-top {
@@ -275,17 +208,8 @@
     gap: 6px;
   }
 
-  .entry-symbol-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .entry-symbol {
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--green);
-  }
+  .entry-symbol-row { display: flex; align-items: center; gap: 8px; }
+  .entry-symbol { font-weight: 600; font-size: 15px; color: var(--green); }
 
   .entry-sector {
     font-size: 11px;
@@ -296,30 +220,67 @@
     border: 1px solid var(--border-color);
   }
 
-  .entry-author {
-    font-size: 12px;
-    color: var(--text-tertiary);
-  }
+  .entry-author { font-size: 12px; color: var(--text-tertiary); }
 
-  .entry-body p {
-    font-size: 13px;
-    line-height: 1.6;
-    margin: 0 0 4px;
-    color: var(--text-primary);
-  }
-
+  .entry-body p { font-size: 13px; line-height: 1.6; margin: 0 0 4px; color: var(--text-primary); }
   .entry-body p:last-child { margin-bottom: 0; }
-
   .entry-label { color: var(--text-secondary); }
 
-  .empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--text-tertiary);
-    font-size: 14px;
+  /* Bouton crochet watchlist */
+  .watchlist-btn {
+    background: transparent;
+    border: 1.5px solid var(--green-dim);
+    border-radius: 7px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    color: var(--green);
+    font-size: 16px;
+  }
+  .watchlist-btn:hover { background: var(--green-bg); border-color: var(--green); }
+  .watchlist-btn.in-watchlist { background: var(--green-bg); border-color: var(--green); }
+
+  /* Watchlist cards */
+  .watchlist-card {
+    background: var(--bg-card);
+    border: 1px solid var(--green-dim);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
   }
 
-  /* ---------- Config warning ---------- */
+  .watchlist-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .remove-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    font-size: 14px;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+  .remove-btn:hover { border-color: var(--red); color: var(--red); background: rgba(231,76,60,0.08); }
+
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-tertiary); font-size: 14px; }
+
   .config-warning {
     background: rgba(231,76,60,0.08);
     border: 1px solid rgba(231,76,60,0.3);
@@ -330,17 +291,22 @@
     line-height: 1.6;
     color: #ff8a80;
   }
+  .config-warning code { background: #1a1a1a; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
 
-  .config-warning code {
-    background: #1a1a1a;
-    padding: 1px 5px;
-    border-radius: 4px;
-    font-size: 12px;
+  /* Watchlist badge sur l'onglet */
+  .tab-badge {
+    display: inline-block;
+    background: var(--green);
+    color: #0a0a0a;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 6px;
+    margin-left: 5px;
+    vertical-align: middle;
   }
 
-  @media (max-width: 480px) {
-    .field-row { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -356,7 +322,7 @@
 
   <div id="config-warning" class="config-warning" style="display:none;">
     Firebase n'est pas encore configuré. Ouvrez ce fichier dans un éditeur de texte et remplissez l'objet
-    <code>firebaseConfig</code> en haut du script avec vos identifiants Firebase. Voir les instructions dans les commentaires du fichier.
+    <code>firebaseConfig</code> en haut du script avec vos identifiants Firebase.
   </div>
 
   <div class="status-bar">
@@ -367,9 +333,10 @@
   <div class="tabs">
     <button class="tab-btn active" id="tab-propose-btn">Proposer</button>
     <button class="tab-btn" id="tab-list-btn">Voir la liste</button>
+    <button class="tab-btn" id="tab-watchlist-btn">Watchlist <span class="tab-badge" id="watchlist-badge" style="display:none;">0</span></button>
   </div>
 
-  <!-- ===================== ONGLET PROPOSER ===================== -->
+  <!-- ONGLET PROPOSER -->
   <div class="tab-panel active" id="tab-propose">
     <div class="card">
       <div class="field-row">
@@ -399,7 +366,7 @@
     </div>
   </div>
 
-  <!-- ===================== ONGLET VOIR LA LISTE ===================== -->
+  <!-- ONGLET VOIR LA LISTE -->
   <div class="tab-panel" id="tab-list">
     <div class="list-header">
       <span class="list-count" id="count-label">Chargement...</span>
@@ -409,26 +376,27 @@
     <p class="empty-state" id="empty-state" style="display:none;">Aucune proposition pour l'instant. Soyez le premier !</p>
   </div>
 
+  <!-- ONGLET WATCHLIST -->
+  <div class="tab-panel" id="tab-watchlist">
+    <div class="list-header">
+      <span class="list-count" id="watchlist-count-label">Chargement...</span>
+      <button class="reset-btn" id="reset-watchlist-btn">Vider la watchlist</button>
+    </div>
+    <div class="entry-list" id="watchlist-container"></div>
+    <p class="empty-state" id="watchlist-empty" style="display:none;">Aucune action dans la watchlist. Cliquez sur ✓ dans la liste pour en ajouter !</p>
+  </div>
+
 </div>
+
+<footer style="text-align:center; padding: 2rem 1rem 1.5rem; border-top: 1px solid #1a1a1a; margin-top: 2rem;">
+  <p style="font-size: 12px; color: #444; margin: 0; letter-spacing: 0.5px;">Créé par <span style="color: #555;">Groupe CMP</span></p>
+</footer>
 
 <script>
 /* ================================================================
    CONFIGURATION FIREBASE
    ================================================================
-   1. Allez sur https://console.firebase.google.com
-   2. Créez un projet (gratuit, pas de carte de crédit nécessaire)
-   3. Dans le projet : "Créer une application Web" (icône </>)
-   4. Copiez l'objet firebaseConfig qu'on vous donne et collez-le
-      ci-dessous, à la place de celui-ci.
-   5. Dans le menu de gauche, allez dans "Realtime Database" puis
-      "Créer une base de données" (mode test pour commencer).
-   6. Dans l'onglet "Règles" de la Realtime Database, vous pouvez
-      utiliser temporairement :
-        {
-          "rules": { ".read": true, ".write": true }
-        }
-      (À restreindre plus tard si besoin, mais suffisant pour un
-      usage de classe interne avec lien non public.)
+   Remplacez le bloc ci-dessous par vos identifiants Firebase.
 ================================================================ */
 const firebaseConfig = {
   apiKey: "AIzaSyCBskLrXYNKB6W99_5JQDkqWk-I6bOCUl8",
@@ -440,13 +408,14 @@ const firebaseConfig = {
   appId: "1:110318223706:web:5975e5f90668018d48b363"
 };
 
-const DB_PATH = "trading-floor-actions";
+const DB_PATH       = "trading-floor-actions";
+const WATCHLIST_PATH = "trading-floor-watchlist";
 
 let db = null;
 let isConfigured = firebaseConfig.apiKey !== "VOTRE_API_KEY";
 
-const statusDot = document.getElementById('status-dot');
-const statusText = document.getElementById('status-text');
+const statusDot    = document.getElementById('status-dot');
+const statusText   = document.getElementById('status-text');
 const configWarning = document.getElementById('config-warning');
 
 if (!isConfigured) {
@@ -467,24 +436,19 @@ if (!isConfigured) {
 }
 
 /* ---------------- Tabs ---------------- */
-const tabProposeBtn = document.getElementById('tab-propose-btn');
-const tabListBtn = document.getElementById('tab-list-btn');
-const tabPropose = document.getElementById('tab-propose');
-const tabList = document.getElementById('tab-list');
+const allTabBtns   = document.querySelectorAll('.tab-btn');
+const allTabPanels = document.querySelectorAll('.tab-panel');
 
-tabProposeBtn.addEventListener('click', () => {
-  tabProposeBtn.classList.add('active');
-  tabListBtn.classList.remove('active');
-  tabPropose.classList.add('active');
-  tabList.classList.remove('active');
-});
+function activateTab(id) {
+  allTabBtns.forEach(b => b.classList.remove('active'));
+  allTabPanels.forEach(p => p.classList.remove('active'));
+  document.getElementById(id + '-btn').classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
 
-tabListBtn.addEventListener('click', () => {
-  tabListBtn.classList.add('active');
-  tabProposeBtn.classList.remove('active');
-  tabList.classList.add('active');
-  tabPropose.classList.remove('active');
-});
+document.getElementById('tab-propose-btn').addEventListener('click', () => activateTab('tab-propose'));
+document.getElementById('tab-list-btn').addEventListener('click',    () => activateTab('tab-list'));
+document.getElementById('tab-watchlist-btn').addEventListener('click', () => activateTab('tab-watchlist'));
 
 /* ---------------- Helpers ---------------- */
 function escapeHtml(str) {
@@ -493,12 +457,18 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+/* ---------------- State ---------------- */
+let currentEntries   = {};
+let currentWatchlist = {};
+
+/* ---------------- Render: liste principale ---------------- */
 function render(entries) {
-  const container = document.getElementById('list-container');
-  const empty = document.getElementById('empty-state');
+  currentEntries = entries || {};
+  const container  = document.getElementById('list-container');
+  const empty      = document.getElementById('empty-state');
   const countLabel = document.getElementById('count-label');
 
-  const list = Object.values(entries || {}).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  const list = Object.entries(currentEntries).sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0));
 
   countLabel.textContent = list.length === 0
     ? 'Aucune proposition'
@@ -511,14 +481,69 @@ function render(entries) {
   }
   empty.style.display = 'none';
 
-  container.innerHTML = list.map(e => `
+  container.innerHTML = list.map(([key, e]) => {
+    const inWatch = Object.values(currentWatchlist).some(w => w.originalKey === key);
+    return `
     <div class="entry-card">
       <div class="entry-top">
         <div class="entry-symbol-row">
           <span class="entry-symbol">${escapeHtml(e.symbol || '')}</span>
           <span class="entry-sector">${escapeHtml(e.sector || '')}</span>
         </div>
-        <span class="entry-author">par ${escapeHtml(e.name || '')}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="entry-author">par ${escapeHtml(e.name || '')}</span>
+          <button class="watchlist-btn ${inWatch ? 'in-watchlist' : ''}"
+                  title="${inWatch ? 'Déjà dans la watchlist' : 'Ajouter à la watchlist'}"
+                  onclick="toggleWatchlist('${key}', ${JSON.stringify(JSON.stringify(e))})">
+            ✓
+          </button>
+        </div>
+      </div>
+      <div class="entry-body">
+        <p><span class="entry-label">Technique:</span> ${escapeHtml(e.technical || '')}</p>
+        <p><span class="entry-label">Fondamental:</span> ${escapeHtml(e.fundamental || '')}</p>
+      </div>
+    </div>
+  `}).join('');
+}
+
+/* ---------------- Render: watchlist ---------------- */
+function renderWatchlist(watchlist) {
+  currentWatchlist = watchlist || {};
+  const container  = document.getElementById('watchlist-container');
+  const empty      = document.getElementById('watchlist-empty');
+  const countLabel = document.getElementById('watchlist-count-label');
+  const badge      = document.getElementById('watchlist-badge');
+
+  const list = Object.entries(currentWatchlist).sort((a, b) => (b[1].addedTs || 0) - (a[1].addedTs || 0));
+
+  countLabel.textContent = list.length === 0
+    ? 'Aucune action'
+    : list.length + ' action' + (list.length > 1 ? 's' : '') + ' cette semaine';
+
+  badge.textContent = list.length;
+  badge.style.display = list.length > 0 ? 'inline-block' : 'none';
+
+  if (list.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    // Re-render la liste pour enlever la couleur verte des boutons
+    render(currentEntries);
+    return;
+  }
+  empty.style.display = 'none';
+
+  container.innerHTML = list.map(([wkey, e]) => `
+    <div class="watchlist-card">
+      <div class="watchlist-top">
+        <div class="entry-symbol-row">
+          <span class="entry-symbol">${escapeHtml(e.symbol || '')}</span>
+          <span class="entry-sector">${escapeHtml(e.sector || '')}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="entry-author">par ${escapeHtml(e.name || '')}</span>
+          <button class="remove-btn" title="Retirer de la watchlist" onclick="removeFromWatchlist('${wkey}')">✕</button>
+        </div>
       </div>
       <div class="entry-body">
         <p><span class="entry-label">Technique:</span> ${escapeHtml(e.technical || '')}</p>
@@ -526,6 +551,46 @@ function render(entries) {
       </div>
     </div>
   `).join('');
+
+  // Re-render la liste pour mettre à jour les boutons ✓
+  render(currentEntries);
+}
+
+/* ---------------- Watchlist actions ---------------- */
+async function toggleWatchlist(key, entryJson) {
+  if (!db) return;
+  const e = JSON.parse(entryJson);
+  const alreadyIn = Object.values(currentWatchlist).some(w => w.originalKey === key);
+  if (alreadyIn) {
+    alert("Cette action est déjà dans la watchlist !");
+    return;
+  }
+  try {
+    await db.ref(WATCHLIST_PATH).push({
+      ...e,
+      originalKey: key,
+      addedTs: Date.now()
+    });
+  } catch (err) {
+    console.error(err);
+    alert("Erreur lors de l'ajout à la watchlist.");
+  }
+}
+
+async function removeFromWatchlist(wkey) {
+  const mdp = prompt("🔒 Mot de passe pour retirer de la watchlist :");
+  if (mdp === null) return;
+  if (mdp !== 'tradingfloor2023') {
+    alert("❌ Mot de passe incorrect.");
+    return;
+  }
+  if (!db) return;
+  try {
+    await db.ref(WATCHLIST_PATH + '/' + wkey).remove();
+  } catch (err) {
+    console.error(err);
+    alert("Erreur lors de la suppression.");
+  }
 }
 
 /* ---------------- Firebase listeners ---------------- */
@@ -537,60 +602,55 @@ if (db) {
     statusDot.className = 'status-dot error';
     statusText.textContent = 'Erreur de lecture';
   });
+
+  db.ref(WATCHLIST_PATH).on('value', (snapshot) => {
+    renderWatchlist(snapshot.val());
+  });
 } else {
   render({});
+  renderWatchlist({});
 }
 
 /* ---------------- Submit ---------------- */
 document.getElementById('submit-btn').addEventListener('click', async () => {
-  const name = document.getElementById('f-name').value.trim();
-  const symbol = document.getElementById('f-symbol').value.trim().toUpperCase();
-  const sector = document.getElementById('f-sector').value.trim();
-  const technical = document.getElementById('f-technical').value.trim();
+  const name       = document.getElementById('f-name').value.trim();
+  const symbol     = document.getElementById('f-symbol').value.trim().toUpperCase();
+  const sector     = document.getElementById('f-sector').value.trim();
+  const technical  = document.getElementById('f-technical').value.trim();
   const fundamental = document.getElementById('f-fundamental').value.trim();
-  const errorEl = document.getElementById('form-error');
-  const btn = document.getElementById('submit-btn');
+  const errorEl    = document.getElementById('form-error');
+  const btn        = document.getElementById('submit-btn');
 
   if (!name || !symbol || !sector || !technical || !fundamental) {
     errorEl.style.display = 'block';
     return;
   }
   errorEl.style.display = 'none';
-
-  if (!db) {
-    alert("Firebase n'est pas configuré. Voir l'avertissement en haut de la page.");
-    return;
-  }
+  if (!db) { alert("Firebase n'est pas configuré."); return; }
 
   btn.disabled = true;
   btn.textContent = 'Ajout en cours...';
 
   try {
-    await db.ref(DB_PATH).push({
-      name, symbol, sector, technical, fundamental,
-      ts: Date.now()
-    });
-
+    await db.ref(DB_PATH).push({ name, symbol, sector, technical, fundamental, ts: Date.now() });
     document.getElementById('f-name').value = '';
     document.getElementById('f-symbol').value = '';
     document.getElementById('f-sector').value = '';
     document.getElementById('f-technical').value = '';
     document.getElementById('f-fundamental').value = '';
-
-    tabListBtn.click();
+    activateTab('tab-list');
   } catch (e) {
     console.error(e);
-    alert("Erreur lors de l'ajout. Vérifiez votre connexion ou la configuration Firebase.");
+    alert("Erreur lors de l'ajout.");
   }
 
   btn.disabled = false;
   btn.textContent = 'Ajouter ma proposition';
 });
 
-/* ---------------- Reset (with password) ---------------- */
-const resetBtn = document.getElementById('reset-btn');
-resetBtn.addEventListener('click', async () => {
-  const mdp = prompt("🔒 Entrez le mot de passe pour réinitialiser la semaine :");
+/* ---------------- Reset liste ---------------- */
+document.getElementById('reset-btn').addEventListener('click', async () => {
+  const mdp = prompt("🔒 Mot de passe pour réinitialiser la semaine :");
   if (mdp === null) return;
   if (mdp !== 'tradingfloor2023') {
     alert("❌ Mot de passe incorrect. La liste n'a pas été effacée.");
@@ -606,11 +666,26 @@ resetBtn.addEventListener('click', async () => {
     }
   }
 });
-</script>
 
-<footer style="text-align:center; padding: 2rem 1rem 1.5rem; border-top: 1px solid #1a1a1a; margin-top: 2rem;">
-  <p style="font-size: 12px; color: #444; margin: 0; letter-spacing: 0.5px;">Créé par <span style="color: #555;">Groupe CMP</span></p>
-</footer>
+/* ---------------- Reset watchlist ---------------- */
+document.getElementById('reset-watchlist-btn').addEventListener('click', async () => {
+  const mdp = prompt("🔒 Mot de passe pour vider la watchlist :");
+  if (mdp === null) return;
+  if (mdp !== 'tradingfloor2023') {
+    alert("❌ Mot de passe incorrect.");
+    return;
+  }
+  if (db) {
+    try {
+      await db.ref(WATCHLIST_PATH).remove();
+      alert("✅ La watchlist a été vidée !");
+    } catch (e) {
+      console.error(e);
+      alert("Erreur lors de la réinitialisation.");
+    }
+  }
+});
+</script>
 
 </body>
 </html>
